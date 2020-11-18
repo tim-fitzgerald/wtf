@@ -55,6 +55,7 @@ import (
 	"github.com/wtfutil/wtf/modules/rollbar"
 	"github.com/wtfutil/wtf/modules/security"
 	"github.com/wtfutil/wtf/modules/spacex"
+	"github.com/wtfutil/wtf/modules/spoke"
 	"github.com/wtfutil/wtf/modules/spotify"
 	"github.com/wtfutil/wtf/modules/spotifyweb"
 	"github.com/wtfutil/wtf/modules/status"
@@ -265,6 +266,9 @@ func MakeWidget(
 	case "status":
 		settings := status.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = status.NewWidget(app, settings)
+	case "spoke":
+		settings := spoke.NewSettingsFromYAML(moduleName, moduleConfig, config)
+		widget = spoke.NewWidget(app, pages, settings)
 	case "subreddit":
 		settings := subreddit.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = subreddit.NewWidget(app, pages, settings)
