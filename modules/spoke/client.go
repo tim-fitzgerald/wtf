@@ -20,8 +20,9 @@ func (widget *Widget) api(method string, path string, params string) (*Resource,
 	req, err := http.NewRequest(method, URL, bytes.NewBufferString(params))
 	req.Header.Add("Api-Key", widget.settings.apiKey)
 
-	q := req.URL.Query()          // Get a copy of the query values.
-	q.Add("filter", "inbox")      // Add a new value to the set.
+	q := req.URL.Query()     // Get a copy of the query values.
+	q.Add("filter", "inbox") // Add a new value to the set.
+	q.Add("status", "OPEN")
 	req.URL.RawQuery = q.Encode() // Encode and assign back to the original query.
 
 	resp, err := client.Do(req)

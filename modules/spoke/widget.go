@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"github.com/rivo/tview"
+	"github.com/wtfutil/wtf/utils"
 	"github.com/wtfutil/wtf/view"
 )
 
@@ -36,7 +37,7 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 }
 
 /* -------------------- Exported Functions -------------------- */
-// blah blah
+
 func (widget *Widget) Refresh() {
 	requestArray, err := widget.listRequests()
 	widget.err = err
@@ -45,7 +46,7 @@ func (widget *Widget) Refresh() {
 }
 
 /* -------------------- Unexported Functions -------------------- */
-// blah blah
+
 func (widget *Widget) Render() {
 	widget.Redraw(widget.content)
 }
@@ -75,6 +76,15 @@ func (widget *Widget) format(request Request, idx int) string {
 		textColor = widget.settings.common.Colors.BorderTheme.Focused
 	}
 
-	str := fmt.Sprintf(" [%s:]%s\n %s\n\n", textColor, request.Subject, request.Requester)
+	str := fmt.Sprintf(" [%s:]%s\n %s\n\n", textColor, request.Subject, request.Permalink)
 	return str
+}
+
+func (widget *Widget) openRequest() {
+	sel := widget.GetSelected()
+	if sel >= 0 && widget.result != nil && sel < len(widget.result.Results) {
+		request := &widget.result.Results[sel]
+		requestURL := request.Permalink
+		utils.OpenFile(requestURL)
+	}
 }
