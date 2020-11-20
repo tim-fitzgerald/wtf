@@ -23,8 +23,7 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 	settings := Settings{
 		common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
 
-		apiKey:   ymlConfig.UString("apiKey", ymlConfig.UString("apikey", os.Getenv("ZENDESK_API"))),
-		username: ymlConfig.UString("username"),
+		apiKey: ymlConfig.UString("apiKey", ymlConfig.UString("apikey", os.Getenv("SPOKE_TOKEN"))),
 	}
 
 	cfg.ModuleSecret(name, globalConfig, &settings.apiKey).Load()
