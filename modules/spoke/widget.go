@@ -42,14 +42,15 @@ func (widget *Widget) Refresh() {
 	requestArray, err := widget.listRequests()
 	widget.err = err
 	widget.result = requestArray
+	widget.SetItemCount(widget.result.Total)
 	widget.Render()
 }
-
-/* -------------------- Unexported Functions -------------------- */
 
 func (widget *Widget) Render() {
 	widget.Redraw(widget.content)
 }
+
+/* -------------------- Unexported Functions -------------------- */
 
 func (widget *Widget) content() (string, string, bool) {
 	title := fmt.Sprintf("%s (%d)", widget.CommonSettings().Title, widget.result.Total)

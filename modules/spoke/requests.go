@@ -34,7 +34,7 @@ type Request struct {
 	} `json:"requestTypeInfo"`
 }
 
-func (widget *Widget) listRequests() (*RequestsArray, error) {
+func (widget *Widget) listRequests(pag ...string) (*RequestsArray, error) {
 	RequestStruct := &RequestsArray{}
 	resource, err := widget.api("GET", "/requests", "")
 	if err != nil {
